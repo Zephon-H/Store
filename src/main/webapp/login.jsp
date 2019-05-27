@@ -10,7 +10,7 @@
 <html>
 <head>
     <title>商店 | 登录</title>
-    <link href="static/css/style.css" rel='stylesheet' type='text/css'/>
+    <link href="css/style.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript"> addEventListener("load", function () {
         setTimeout(hideURLbar, 0);
@@ -20,11 +20,11 @@
         window.scrollTo(0, 1);
     };
     </script>
-    
 
-    <script src="static/js/jquery.min.js"></script>
+
+    <script src="js/jquery.min.js"></script>
     <!----start-alert-scroller---->
-    <script type="text/javascript" src="static/js/jquery.easy-ticker.js"></script>
+    <script type="text/javascript" src="js/jquery.easy-ticker.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $('#demo').hide();
@@ -33,16 +33,16 @@
     </script>
     <!----start-alert-scroller---->
     <!-- start menu -->
-    <link href="static/css/megamenu.css" rel="stylesheet" type="text/css" media="all"/>
-    <script type="text/javascript" src="static/js/megamenu.js"></script>
+    <link href="css/megamenu.css" rel="stylesheet" type="text/css" media="all"/>
+    <script type="text/javascript" src="js/megamenu.js"></script>
     <script>$(document).ready(function () {
         $(".megamenu").megamenu();
     });</script>
-    <script src="static/js/menu_jquery.js"></script>
+    <script src="js/menu_jquery.js"></script>
     <!-- //End menu -->
     <!---move-top-top---->
-    <script type="text/javascript" src="static/js/move-top.js"></script>
-    <script type="text/javascript" src="static/js/easing.js"></script>
+    <script type="text/javascript" src="js/move-top.js"></script>
+    <script type="text/javascript" src="js/easing.js"></script>
     <script type="text/javascript">
         jQuery(document).ready(function ($) {
             $(".scroll").click(function (event) {
@@ -178,7 +178,7 @@
                             </div>
                             <div class="col1 men">
                                 <div class="men-pic">
-                                    <img src="static/images/men.png" title=""/>
+                                    <img src="images/men.png" title=""/>
                                 </div>
                             </div>
                         </div>
@@ -232,7 +232,7 @@
                             </div>
                             <div class="col1 men">
                                 <div class="men-pic">
-                                    <img src="static/images/women.png" title=""/>
+                                    <img src="images/women.png" title=""/>
                                 </div>
                             </div>
                         </div>

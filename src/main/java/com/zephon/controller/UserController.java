@@ -47,6 +47,6 @@ public class UserController {
     @RequestMapping("exit")
     public String exit(HttpSession session){
         session.removeAttribute("user");
-        return "redirect:/index.jsp";
+        return "redirect:index";
     }
 }

@@ -43,10 +43,18 @@
         </property>
     </bean>
 
-    <!-- 配置拦截器 -->
+    <!-- 配置拦截器 小心会拦截静态资源-->
     <mvc:interceptors>
-        <!-- 全局 -->
-        <bean class="com.zephon.interceptor.UserInterceptor"/>
+        <mvc:interceptor>
+            <mvc:mapping path="/**/*"/>
+            <mvc:exclude-mapping path="/**/*.css"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.png"/>
+            <mvc:exclude-mapping path="/**/*.gif"/>
+            <mvc:exclude-mapping path="/**/*.jpg"/>
+            <mvc:exclude-mapping path="/**/*.jpeg"/>
+            <bean class="com.zephon.interceptor.UserInterceptor"/>
+        </mvc:interceptor>
     </mvc:interceptors>
 
 </beans>
