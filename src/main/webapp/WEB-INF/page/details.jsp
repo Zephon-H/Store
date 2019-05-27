@@ -372,8 +372,8 @@
     <div class="product-details">
         <div class="wrap">
             <ul class="product-head">
-                <li><a href="#">Home</a> <span>::</span></li>
-                <li class="active-page"><a href="#">Product Page</a></li>
+                <li><a href="#">主页</a> <span>::</span></li>
+                <li class="active-page"><a href="#">商品详情页</a></li>
                 <div class="clear"></div>
             </ul>
             <!----details-product-slider--->
@@ -439,36 +439,30 @@
                 </div>
                 <div class="details-left-info">
                     <div class="details-right-head">
-                        <h1>Product Name Goes Here</h1>
-                        <ul class="pro-rate">
-                            <li><a class="product-rate" href="#"> <label> </label></a> <span> </span></li>
-                            <li><a href="#">0 Review(s) Add Review</a></li>
-                        </ul>
-                        <p class="product-detail-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                        <a class="learn-more" href="#"><h3>MORE DETAILS</h3></a>
+                        <h1>${goods.name}name</h1>
+                        <p class="product-detail-info">${goods.detail}detail</p>
                         <div class="product-more-details">
                             <ul class="price-avl">
-                                <li class="price"><span>$153.39</span><label>$145.72</label></li>
-                                <li class="stock"><i>In stock</i></li>
+                                <li class="price"><span>${goods.price}old price</span><label>${goods.price}price</label></li>
+                                <li class="stock"><i>正在热卖</i></li>
                                 <div class="clear"></div>
                             </ul>
-                            <ul class="product-colors">
-                                <h3>available Colors ::</h3>
-                                <li><a class="color1" href="#"><span> </span></a></li>
-                                <li><a class="color2" href="#"><span> </span></a></li>
-                                <li><a class="color3" href="#"><span> </span></a></li>
-                                <li><a class="color4" href="#"><span> </span></a></li>
-                                <li><a class="color5" href="#"><span> </span></a></li>
-                                <li><a class="color6" href="#"><span> </span></a></li>
-                                <li><a class="color7" href="#"><span> </span></a></li>
-                                <li><a class="color8" href="#"><span> </span></a></li>
+                            <ul class="product-colors" id="colorSelect">
+                                <h3>可选颜色 :</h3>
+                                <li><a class="color1" href="#"><span id="color_gray"> </span></a></li>
+                                <li><a class="color2" href="#"><span id="color_blue"> </span></a></li>
+                                <li><a class="color3" href="#"><span id="color_pink"> </span></a></li>
+                                <li><a class="color4" href="#"><span id="color_green"> </span></a></li>
+                                <li><a class="color5" href="#"><span id="color_orange"> </span></a></li>
+                                <li><a class="color6" href="#"><span id="color_black"> </span></a></li>
+                                <li><a class="color7" href="#"><span id="color_purple"> </span></a></li>
+                                <li><a class="color8" href="#"><span id="color_yellow"> </span></a></li>
+                                <input type="hidden" id="color" name="color"/>
                                 <div class="clear"></div>
                             </ul>
                             <ul class="prosuct-qty">
-                                <span>Quantity:</span>
-                                <select>
+                                <span>数量:</span>
+                                <select name="quantity">
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -477,9 +471,9 @@
                                     <option>6</option>
                                 </select>
                             </ul>
-                            <input type="button" value="add to cart"/>
+                            <input type="submit" value="添加到购物车"/>
                             <ul class="product-share">
-                                <h3>All so Share On</h3>
+                                <h3>分享到</h3>
                                 <ul>
                                     <li><a class="share-face" href="#"><span> </span> </a></li>
                                     <li><a class="share-twitter" href="#"><span> </span> </a></li>
@@ -494,7 +488,7 @@
                 <div class="clear"></div>
             </div>
             <div class="details-right">
-                <a href="#">SEE MORE</a>
+                <a href="products">查看更多</a>
             </div>
             <div class="clear"></div>
         </div>
