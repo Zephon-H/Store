@@ -1,5 +1,10 @@
 package com.zephon.pojo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonValue;
+
+import java.util.Objects;
+
 /**
  * @author Zephon
  * @version V1.0
@@ -28,6 +33,21 @@ public class Goods {
                 ", sales=" + sales +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Goods goods = (Goods) o;
+        return id == goods.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+
 
     public Integer getSales() {
         return sales;

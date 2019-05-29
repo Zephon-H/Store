@@ -38,4 +38,14 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getSlide() {
         return goodsMapper.selSlide();
     }
+
+    @Override
+    public Goods getGoodsById(int id) {
+        return goodsMapper.selGoodsById(id);
+    }
+
+    @Override
+    public List<Goods> getSimilar(String type) {
+        return goodsMapper.selSimilarByType(type);
+    }
 }

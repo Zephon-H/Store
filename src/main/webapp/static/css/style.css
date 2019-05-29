@@ -1461,7 +1461,7 @@ h2.resp-accordion:first-child {
 .product-colors{
 	padding:0.5em 0;
 }
-.product-more-details input[type="submit"]{
+.product-more-details input[type="button"]{
 	background: #E45D5D;
 	color: #FFF;
 	font-size: 0.8em;
@@ -1481,7 +1481,7 @@ h2.resp-accordion:first-child {
 	border-left: none;
 	border-top: none;
 }
-.product-more-details input[type="submit"]:hover{
+.product-more-details input[type="button"]:hover{
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }
@@ -1596,7 +1596,7 @@ h2.resp-accordion:first-child {
 	padding: 0.5em;
 	font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.vertical-tabs form input[type="submit"] {
+.vertical-tabs form input[type="button"] {
 	background: #E45D5D;
 	color: #FFF;
 	font-size: 0.8em;
@@ -1616,7 +1616,7 @@ h2.resp-accordion:first-child {
 	border-left: none;
 	border-top: none;
 }
-.vertical-tabs form input[type="submit"]:hover {
+.vertical-tabs form input[type="button"]:hover {
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }
@@ -1935,7 +1935,7 @@ span.mail a:hover{
 .text2 input[type="text"]:hover,.text2 textarea:hover,.contact-to input[type="text"]:hover{
 	border: 1px solid rgba(228, 93, 93, 0.33);
 }
-.contact-form input[type="submit"] {
+.contact-form input[type="button"] {
 	background: #E45D5D;
 	color: #FFF;
 	padding: .9em 3em;
@@ -1958,7 +1958,7 @@ span.mail a:hover{
 	cursor: pointer;
 	font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.contact-form input[type="submit"]:hover{
+.contact-form input[type="button"]:hover{
 	background: #1C1C20;
 	border-bottom: 4px solid #333;
 }

@@ -3,6 +3,7 @@ package com.zephon.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zephon.pojo.Goods;
+import com.zephon.pojo.User;
 import com.zephon.service.GoodsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Zephon
@@ -58,8 +60,11 @@ public class GoodsController {
     }
 
     @RequestMapping("details")
-    public String details(){
+    public String details(int id,String type,HttpServletRequest req){
         System.out.println("details");
+        System.out.println(goodsServiceImpl.getSimilar(type));
+        req.setAttribute("similarList",goodsServiceImpl.getSimilar(type));
+        req.setAttribute("goods",goodsServiceImpl.getGoodsById(id));
         return "details";
     }
 
@@ -98,5 +103,4 @@ public class GoodsController {
             e.printStackTrace();
         }
     }
-
 }

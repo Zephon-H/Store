@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.zephon.pojo.Goods" %><%--
   Created by IntelliJ IDEA.
   User: zephon
   Date: 19-5-27
@@ -10,7 +10,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Spike shoes Website Template | Details</title>
+    <title>商店 | 详情</title>
     <link href="css/style.css" rel='stylesheet' type='text/css'/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script type="application/x-javascript"> addEventListener("load", function () {
@@ -105,7 +105,15 @@
                     <!---//cart-tonggle-script---->
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
-                    <div id="cart">Your Cart is Empty <span>(0)</span></div>
+                    <div id="cart">
+                        <c:if test="${empty total}">
+                            购物车是空的 <span>(0)</span>
+                        </c:if>
+                        <c:if test="${not empty total}">
+                            <center><a style="color: #fff;" href="cart">结算</a><span>(${total})</span></center>
+                        </c:if>
+
+                    </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
                 </ul>
@@ -117,7 +125,7 @@
                 <div class="top-header-center-alert-right">
                     <div class="vticker">
                         <ul>
-                            <li>适用于300元以上的订单 <label>免费退货</label></li>
+                            <li>适用于300元以上的订单 <label style="display:none ;">免费退货</label></li>
                         </ul>
                     </div>
                 </div>
@@ -439,25 +447,24 @@
                 </div>
                 <div class="details-left-info">
                     <div class="details-right-head">
-                        <h1>${goods.name}name</h1>
-                        <p class="product-detail-info">${goods.detail}detail</p>
+                        <h1>${goods.name}</h1>
+                        <p class="product-detail-info">${goods.detail}</p>
                         <div class="product-more-details">
                             <ul class="price-avl">
-                                <li class="price"><span>${goods.price}old price</span><label>${goods.price}price</label></li>
+                                <li class="price"><span>${goods.price}</span><label>${goods.price}</label></li>
                                 <li class="stock"><i>正在热卖</i></li>
                                 <div class="clear"></div>
                             </ul>
                             <ul class="product-colors" id="colorSelect">
                                 <h3>可选颜色 :</h3>
-                                <li><a class="color1" href="#"><span id="color_gray"> </span></a></li>
-                                <li><a class="color2" href="#"><span id="color_blue"> </span></a></li>
-                                <li><a class="color3" href="#"><span id="color_pink"> </span></a></li>
-                                <li><a class="color4" href="#"><span id="color_green"> </span></a></li>
-                                <li><a class="color5" href="#"><span id="color_orange"> </span></a></li>
-                                <li><a class="color6" href="#"><span id="color_black"> </span></a></li>
-                                <li><a class="color7" href="#"><span id="color_purple"> </span></a></li>
-                                <li><a class="color8" href="#"><span id="color_yellow"> </span></a></li>
-                                <input type="hidden" id="color" name="color"/>
+                                <li><a class="color1" href="#"><span> </span></a></li>
+                                <li><a class="color2" href="#"><span> </span></a></li>
+                                <li><a class="color3" href="#"><span> </span></a></li>
+                                <li><a class="color4" href="#"><span> </span></a></li>
+                                <li><a class="color5" href="#"><span> </span></a></li>
+                                <li><a class="color6" href="#"><span> </span></a></li>
+                                <li><a class="color7" href="#"><span> </span></a></li>
+                                <li><a class="color8" href="#"><span> </span></a></li>
                                 <div class="clear"></div>
                             </ul>
                             <ul class="prosuct-qty">
@@ -471,7 +478,25 @@
                                     <option>6</option>
                                 </select>
                             </ul>
-                            <input type="submit" value="添加到购物车"/>
+                            <input id="bt" type="button" value="添加到购物车"/>
+                            <script>
+                                $(function () {
+                                   $("#bt").click(function () {
+                                       $.ajax({
+                                           url:"addToCart",
+                                           type: "post",
+                                           datatype: 'json',
+                                           data:{
+                                               id:${goods.id},
+                                               num:parseInt($("select").val())
+                                           },
+                                           success: function (data) {
+                                               alert("添加成功")
+                                           }
+                                       });
+                                   });
+                                });
+                            </script>
                             <ul class="product-share">
                                 <h3>分享到</h3>
                                 <ul>
@@ -526,31 +551,26 @@
                 <!--vertical Tabs-->
                 <div id="verticalTab">
                     <ul class="resp-tabs-list">
-                        <li>Description</li>
-                        <li>Product tags</li>
-                        <li>Product reviews</li>
+                        <li>描述</li>
+                        <li>商品标签</li>
+                        <li>商品评论</li>
                     </ul>
                     <div class="resp-tabs-container vertical-tabs">
                         <div>
-                            <h3> Details</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna, euismod ut
-                                ornare non, volutpat vel tortor. Integer laoreet placerat suscipit. Sed sodales
-                                scelerisque commodo. Nam porta cursus lectus. Proin nunc erat, gravida a facilisis quis,
-                                ornare id lectus. Proin consectetur nibh quis urna gravida mollis.</p>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum nibh urna, euismod ut
-                                ornare non, volutpat vel tortor</p>
+                            <h3> 详情</h3>
+                            <p>${goods.detail}</p>
                         </div>
                         <div>
-                            <h3>Product Tags</h3>
-                            <h4>Add Your Tags:</h4>
+                            <h3>商品标签</h3>
+                            <h4>添加你的标签</h4>
                             <form>
-                                <input type="text"> <input type="submit" value="ADD TAGS"/>
-                                <span>Use spaces to separate tags. Use single quotes (') for phrases.</span>
+                                <input type="text"> <input type="submit" value="添加标签"/>
+                                <span>使用空格分开标签</span>
                             </form>
                         </div>
                         <div>
-                            <h3>Customer Reviews</h3>
-                            <p>There are no customer reviews yet.</p>
+                            <h3>顾客评论</h3>
+                            <p>暂时还没有顾客评论</p>
                         </div>
                     </div>
                 </div>
@@ -558,9 +578,8 @@
                 <!--- start-similar-products--->
                 <div class="similar-products">
                     <div class="similar-products-left">
-                        <h3>SIMILAR PRODUCTS</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua.</p>
+                        <h3>类似商品</h3>
+                        <p>这里显示的是类似的商品</p>
                     </div>
                     <div class="similar-products-right">
                         <!-- start content_slider -->
@@ -590,141 +609,34 @@
                         </script>
                         <!---//End-rate---->
                         <div id="owl-demo" class="owl-carousel">
-                            <div class="item" onclick="location.href='details.html';">
-                                <div class="product-grid fade sproduct-grid">
-                                    <div class="product-pic">
-                                        <a href="#"><img src="images/product1.jpg" title="product-name"/></a>
-                                        <p>
-                                            <a href="#">
-                                                <small>Nike</small>
-                                                HYPERVENOM
-                                                <small>Phantom</small>
-                                                FG</a>
-                                            <span>Men's Firm-Ground Football Boot</span>
-                                        </p>
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-info-cust">
-                                            <a href="#">Details</a>
+                            <c:forEach items="${similarList}" var="s">
+                                <div class="item" onclick="location.href='details?id=${s.id}&type=${s.type}';">
+                                    <div class="product-grid fade sproduct-grid">
+                                        <div class="product-pic">
+                                            <a href="#"><img src="images/product${s.picture}.jpg" title="product-name"/></a>
+                                            <p>
+                                                <a href="#">
+                                                    ${s.name}
+                                                    <small>${s.type}</small>
+                                                    </a>
+                                                <span>${s.detail}</span>
+                                            </p>
                                         </div>
-                                        <div class="product-info-price">
-                                            <a href="#">&#163; 200</a>
+                                        <div class="product-info">
+                                            <div class="product-info-cust">
+                                                <a href="#">详细信息</a>
+                                            </div>
+                                            <div class="product-info-price">
+                                                <a href="#">${s.price}</a>
+                                            </div>
+                                            <div class="clear"></div>
                                         </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="more-product-info">
-                                        <span> </span>
+                                        <div class="more-product-info">
+                                            <span> </span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="item" onclick="location.href='details.html';">
-                                <div class="product-grid fade sproduct-grid">
-                                    <div class="product-pic">
-                                        <a href="#"><img src="images/product2.jpg" title="product-name"/></a>
-                                        <p>
-                                            <a href="#">
-                                                <small>Nike</small>
-                                                HYPERVENOM
-                                                <small>Phantom</small>
-                                                FG</a>
-                                            <span>Men's Firm-Ground Football Boot</span>
-                                        </p>
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-info-cust">
-                                            <a href="#">Details</a>
-                                        </div>
-                                        <div class="product-info-price">
-                                            <a href="#">&#163; 320</a>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="more-product-info">
-                                        <span> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" onclick="location.href='details.html';">
-                                <div class="product-grid fade sproduct-grid">
-                                    <div class="product-pic">
-                                        <a href="#"><img src="images/product3.jpg" title="product-name"/></a>
-                                        <p>
-                                            <a href="#">
-                                                <small>Nike</small>
-                                                HYPERVENOM
-                                                <small>Phantom</small>
-                                                FG</a>
-                                            <span>Men's Firm-Ground Football Boot</span>
-                                        </p>
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-info-cust">
-                                            <a href="#">Details</a>
-                                        </div>
-                                        <div class="product-info-price">
-                                            <a href="#">&#163; 380</a>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="more-product-info">
-                                        <span> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" onclick="location.href='details.html';">
-                                <div class="product-grid fade sproduct-grid">
-                                    <div class="product-pic">
-                                        <a href="#"><img src="images/product4.jpg" title="product-name"/></a>
-                                        <p>
-                                            <a href="#">
-                                                <small>Nike</small>
-                                                HYPERVENOM
-                                                <small>Phantom</small>
-                                                FG</a>
-                                            <span>Men's Firm-Ground Football Boot</span>
-                                        </p>
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-info-cust">
-                                            <a href="#">Details</a>
-                                        </div>
-                                        <div class="product-info-price">
-                                            <a href="#">&#163; 300</a>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="more-product-info">
-                                        <span> </span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="item" onclick="location.href='details.html';">
-                                <div class="product-grid fade sproduct-grid">
-                                    <div class="product-pic">
-                                        <a href="#"><img src="images/product5.jpg" title="product-name"/></a>
-                                        <p>
-                                            <a href="#">
-                                                <small>Nike</small>
-                                                HYPERVENOM
-                                                <small>Phantom</small>
-                                                FG</a>
-                                            <span>Men's Firm-Ground Football Boot</span>
-                                        </p>
-                                    </div>
-                                    <div class="product-info">
-                                        <div class="product-info-cust">
-                                            <a href="#">Details</a>
-                                        </div>
-                                        <div class="product-info-price">
-                                            <a href="#">&#163; 270</a>
-                                        </div>
-                                        <div class="clear"></div>
-                                    </div>
-                                    <div class="more-product-info">
-                                        <span> </span>
-                                    </div>
-                                </div>
-                            </div>
+                            </c:forEach>
                         </div>
                         <!----//End-img-cursual---->
                     </div>

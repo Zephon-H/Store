@@ -95,7 +95,15 @@
                     <!---//cart-tonggle-script---->
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
-                    <div id="cart">Your Cart is Empty <span>(0)</span></div>
+                    <div id="cart">
+                        <c:if test="${empty total}">
+                            购物车是空的 <span>(0)</span>
+                        </c:if>
+                        <c:if test="${not empty total}">
+                            <center><a style="color: #fff;" href="cart">结算</a><span>(${total})</span></center>
+                        </c:if>
+
+                    </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
                 </ul>
@@ -107,7 +115,7 @@
                 <div class="top-header-center-alert-right">
                     <div class="vticker">
                         <ul>
-                            <li>适用于300元以上的订单 <label>免费退货</label></li>
+                            <li>适用于300元以上的订单 <label style="display:none ;">免费退货</label></li>
                         </ul>
                     </div>
                 </div>
@@ -123,6 +131,8 @@
                         <li><a href="login.jsp">登录</a><span> </span></li>
                         <li><a href="register.jsp">注册</a></li>
                     </c:if>
+
+
                 </ul>
             </div>
             <div class="clear"></div>
@@ -143,6 +153,7 @@
         </div>
     </div>
     <!----//End-mid-head---->
+    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
     <!----start-bottom-header---->
     <div class="header-bottom">
         <div class="wrap">
@@ -350,6 +361,7 @@
         </div>
     </div>
 </div>
+
 <!----//End-bottom-header---->
 <!---//End-header---->
 <!--- start-content---->
@@ -428,7 +440,7 @@
                                 console.log(data+"--"+data[0].detail);
                                 for(var i=0;i<data.length;i++){
                                     if((i+1)%3!=0){
-                                        $("#contentDiv").append("<div onClick=\"location.href='details';\" class=\"product-grid fade\">\n" +
+                                        $("#contentDiv").append("<div onClick=\"location.href='details?id="+data[i].id+"&type="+data[i].type+"';\" class=\"product-grid fade\">\n" +
                                             "                    <div class=\"product-pic\">\n" +
                                             "                        <a href=\"#\"><img src=\"images/product"+data[i].picture+".jpg\" title=\"product-name\"/></a>\n" +
                                             "                        <p>\n" +
@@ -438,10 +450,10 @@
                                             "                    </div>\n" +
                                             "                    <div class=\"product-info\">\n" +
                                             "                        <div class=\"product-info-cust\">\n" +
-                                            "                            <a href=\"details\">Details</a>\n" +
+                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">Details</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"product-info-price\">\n" +
-                                            "                            <a href=\"details\">"+data[i].price+"</a>\n" +
+                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">"+data[i].price+"</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"clear\"></div>\n" +
                                             "                    </div>\n" +
@@ -450,7 +462,7 @@
                                             "                    </div>\n" +
                                             "                </div>");
                                     }else{
-                                        $("#contentDiv").append("<div onClick=\"location.href='details';\" class=\"product-grid fade last-grid\">\n" +
+                                        $("#contentDiv").append("<div onClick=\"location.href='details?id="+data[i].id+"&type="+data[i].type+"';\" class=\"product-grid fade last-grid\">\n" +
                                             "                    <div class=\"product-pic\">\n" +
                                             "                        <a href=\"#\"><img src=\"images/product"+data[i].picture+".jpg\" title=\"product-name\"/></a>\n" +
                                             "                        <p>\n" +
@@ -460,10 +472,10 @@
                                             "                    </div>\n" +
                                             "                    <div class=\"product-info\">\n" +
                                             "                        <div class=\"product-info-cust\">\n" +
-                                            "                            <a href=\"details\">Details</a>\n" +
+                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">Details</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"product-info-price\">\n" +
-                                            "                            <a href=\"details\">"+data[i].price+"元</a>\n" +
+                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">"+data[i].price+"元</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"clear\"></div>\n" +
                                             "                    </div>\n" +
@@ -496,7 +508,7 @@
                                         }
                                         for(var i=0;i<data.length;i++){
                                             if((i+1)%3!=0){
-                                                $("#contentDiv").append("<div onClick=\"location.href='details';\" class=\"product-grid fade\">\n" +
+                                                $("#contentDiv").append("<div onClick=\"location.href='details?id="+data[i].id+"&type="+data[i].type+"';\" class=\"product-grid fade\">\n" +
                                                     "                    <div class=\"product-pic\">\n" +
                                                     "                        <a href=\"#\"><img src=\"images/product"+data[i].picture+".jpg\" title=\"product-name\"/></a>\n" +
                                                     "                        <p>\n" +
@@ -506,10 +518,10 @@
                                                     "                    </div>\n" +
                                                     "                    <div class=\"product-info\">\n" +
                                                     "                        <div class=\"product-info-cust\">\n" +
-                                                    "                            <a href=\"details\">Details</a>\n" +
+                                                    "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">Details</a>\n" +
                                                     "                        </div>\n" +
                                                     "                        <div class=\"product-info-price\">\n" +
-                                                    "                            <a href=\"details\">"+data[i].price+"</a>\n" +
+                                                    "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">"+data[i].price+"</a>\n" +
                                                     "                        </div>\n" +
                                                     "                        <div class=\"clear\"></div>\n" +
                                                     "                    </div>\n" +
@@ -518,7 +530,7 @@
                                                     "                    </div>\n" +
                                                     "                </div>");
                                             }else{
-                                                $("#contentDiv").append("<div onClick=\"location.href='details';\" class=\"product-grid fade last-grid\">\n" +
+                                                $("#contentDiv").append("<div onClick=\"location.href='details?id="+data[i].id+"&type="+data[i].type+"';\" class=\"product-grid fade last-grid\">\n" +
                                                     "                    <div class=\"product-pic\">\n" +
                                                     "                        <a href=\"#\"><img src=\"images/product"+data[i].picture+".jpg\" title=\"product-name\"/></a>\n" +
                                                     "                        <p>\n" +
@@ -528,10 +540,10 @@
                                                     "                    </div>\n" +
                                                     "                    <div class=\"product-info\">\n" +
                                                     "                        <div class=\"product-info-cust\">\n" +
-                                                    "                            <a href=\"details\">Details</a>\n" +
+                                                    "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">Details</a>\n" +
                                                     "                        </div>\n" +
                                                     "                        <div class=\"product-info-price\">\n" +
-                                                    "                            <a href=\"details\">"+data[i].price+"元</a>\n" +
+                                                    "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">"+data[i].price+"元</a>\n" +
                                                     "                        </div>\n" +
                                                     "                        <div class=\"clear\"></div>\n" +
                                                     "                    </div>\n" +

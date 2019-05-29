@@ -27,4 +27,10 @@ public interface GoodsMapper {
 
     @Select("select * from store_goods order by id limit 3")
     List<Goods> selSlide();
+
+    @Select("select * from store_goods where id=#{arg0}")
+    Goods selGoodsById(int id);
+
+    @Select("select * from store_goods where type=#{arg0} limit 5")
+    List<Goods> selSimilarByType(String type);
 }
