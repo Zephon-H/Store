@@ -69,6 +69,18 @@
                                 e.stopPropagation();
                                 if ($cart.is(":hidden")) {
                                     $cart.slideDown("slow");
+                                    $.ajax({
+                                        url: "refresh",
+                                        type: "get",
+                                        datatype: 'json',
+                                        success: function (data) {
+                                            if(data==0){
+                                                $cart.html("购物车是空的 <span>(0)</span>")
+                                            }else{
+                                                $cart.html("<center><a style=\"color: #fff;\" href=\"cart\">结算</a><span>("+data+")</span></center>\n")
+                                            }
+                                        }
+                                    });
                                 } else {
                                     $cart.slideUp("slow");
                                 }
@@ -83,7 +95,8 @@
                     <!---//cart-tonggle-script---->
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
-                    <div id="cart">Your Cart is Empty <span>(0)</span></div>
+                    <div id="cart">
+                    </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
                 </ul>
@@ -95,7 +108,7 @@
                 <div class="top-header-center-alert-right">
                     <div class="vticker">
                         <ul>
-                            <li>适用于300元以上的订单 <label>免费退货</label></li>
+                            <li>适用于300元以上的订单 <label style="display:none ;">免费退货</label></li>
                         </ul>
                     </div>
                 </div>
@@ -103,8 +116,16 @@
             </div>
             <div class="top-header-right">
                 <ul>
-                    <li><a href="login.jsp">登录</a><span> </span></li>
-                    <li><a href="register.jsp">注册</a></li>
+                    <c:if test="${not empty user}">
+                        <li style="color: #fff; font-size:15px;">${user.uname},你好</li>
+                        <li><a href="exit">退出</a></li>
+                    </c:if>
+                    <c:if test="${empty user}">
+                        <li><a href="login.jsp">登录</a><span> </span></li>
+                        <li><a href="register.jsp">注册</a></li>
+                    </c:if>
+
+
                 </ul>
             </div>
             <div class="clear"></div>
@@ -124,23 +145,22 @@
             <div class="clear"></div>
         </div>
     </div>
-    <!----//End-mid-head---->
     <!----start-bottom-header---->
     <div class="header-bottom">
         <div class="wrap">
             <!-- start header menu -->
             <ul class="megamenu skyblue">
-                <li class="grid"><a class="color2" href="#">男子</a>
+                <li class="grid"><a class="color2" href="#">男装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=男装休闲">休闲</a></li>
+                                        <li><a href="products?type=男装跑步">跑步</a></li>
+                                        <li><a href="products?type=男装篮球">篮球</a></li>
+                                        <li><a href="products?type=男装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -184,17 +204,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="active grid"><a class="color4" href="#">女子</a>
+                <li class="active grid"><a class="color4" href="#">女装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=女装休闲">休闲</a></li>
+                                        <li><a href="products?type=女装跑步">跑步</a></li>
+                                        <li><a href="products?type=女装篮球">篮球</a></li>
+                                        <li><a href="products?type=女装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -297,9 +317,9 @@
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>男子定制</h4>
+                                    <h4>男装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -313,9 +333,9 @@
                             </div>
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>女子定制</h4>
+                                    <h4>女装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -332,6 +352,7 @@
         </div>
     </div>
 </div>
+
 <!----//End-bottom-header---->
 <!---//End-header---->
 <!--- start-content---->
@@ -384,7 +405,7 @@
             <div class="bottom-top-grid">
                 <h4>关于我们</h4>
                 <ul>
-                    <li><a href="#">about</a></li>
+                    <li><a href="#">about us</a></li>
                 </ul>
             </div>
             <div class="bottom-top-grid last-bottom-top-grid">

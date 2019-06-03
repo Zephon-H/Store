@@ -18,4 +18,5 @@ public interface GoodsService {
     List<Goods> getSlide();
     Goods getGoodsById(int id);
     List<Goods> getSimilar(String type);
+    List<Goods> getPageByType(String type,int pageSize,int pageNum);
 }

@@ -15,7 +15,7 @@ import java.util.Map;
  * @Copyright ©
  */
 public interface CartService {
-    int addToCart(Map<Goods, Integer> map) throws JsonProcessingException;
+    int addToCart(Map<Goods, Integer> map,int uid) throws JsonProcessingException;
     int updCart(Cart cart) throws JsonProcessingException;
-    Map<Goods,Integer> getAllCart() throws IOException;
+    Map<Goods,Integer> getAllCart(int uid) throws IOException;
 }

@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -54,8 +55,9 @@ public class GoodsController {
     }
 
     @RequestMapping("products")
-    public String products(){
-        System.out.println("products");
+    public String products(String type){
+        System.out.println(type);
+
         return "products";
     }
 
@@ -102,5 +104,16 @@ public class GoodsController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @RequestMapping("selPageByType")
+    @ResponseBody
+    public void selPageByType(HttpServletResponse resp, @RequestParam(defaultValue = "1") String page,String type){
+        int pageSize = 6;
+        int pageNumber = Integer.parseInt(page);
+        System.out.println(pageSize+"--"+pageNumber);
+        List<Goods> list = goodsServiceImpl.getPageByType(type,pageSize, pageNumber);
+        System.out.println("list"+list);
+        ajax(list,resp);
     }
 }

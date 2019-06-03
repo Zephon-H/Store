@@ -91,6 +91,18 @@
                                 e.stopPropagation();
                                 if ($cart.is(":hidden")) {
                                     $cart.slideDown("slow");
+                                    $.ajax({
+                                        url: "refresh",
+                                        type: "get",
+                                        datatype: 'json',
+                                        success: function (data) {
+                                            if(data==0){
+                                                $cart.html("购物车是空的 <span>(0)</span>")
+                                            }else{
+                                                $cart.html("<center><a style=\"color: #fff;\" href=\"cart\">结算</a><span>("+data+")</span></center>\n")
+                                            }
+                                        }
+                                    });
                                 } else {
                                     $cart.slideUp("slow");
                                 }
@@ -106,13 +118,6 @@
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
                     <div id="cart">
-                        <c:if test="${empty total}">
-                            购物车是空的 <span>(0)</span>
-                        </c:if>
-                        <c:if test="${not empty total}">
-                            <center><a style="color: #fff;" href="cart">结算</a><span>(${total})</span></center>
-                        </c:if>
-
                     </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
@@ -162,24 +167,22 @@
             <div class="clear"></div>
         </div>
     </div>
-    <!----//End-mid-head---->
-    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
     <!----start-bottom-header---->
     <div class="header-bottom">
         <div class="wrap">
             <!-- start header menu -->
             <ul class="megamenu skyblue">
-                <li class="grid"><a class="color2" href="#">男子</a>
+                <li class="grid"><a class="color2" href="#">男装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=男装休闲">休闲</a></li>
+                                        <li><a href="products?type=男装跑步">跑步</a></li>
+                                        <li><a href="products?type=男装篮球">篮球</a></li>
+                                        <li><a href="products?type=男装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -223,17 +226,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="active grid"><a class="color4" href="#">女子</a>
+                <li class="active grid"><a class="color4" href="#">女装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=女装休闲">休闲</a></li>
+                                        <li><a href="products?type=女装跑步">跑步</a></li>
+                                        <li><a href="products?type=女装篮球">篮球</a></li>
+                                        <li><a href="products?type=女装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -336,9 +339,9 @@
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>男子定制</h4>
+                                    <h4>男装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -352,9 +355,9 @@
                             </div>
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>女子定制</h4>
+                                    <h4>女装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -415,33 +418,33 @@
                     <ul id="etalage">
                         <li>
                             <a href="optionallink.html">
-                                <img class="etalage_thumb_image" src="images/product-slide/image1_thumb.jpg"/>
-                                <img class="etalage_source_image" src="images/product-slide/image1_large.jpg"/>
+                                <img class="etalage_thumb_image" src="images/product-slide/image1${goods.picture}_thumb.jpg"/>
+                                <img class="etalage_source_image" src="images/product-slide/image1${goods.picture}_large.jpg"/>
                             </a>
                         </li>
                         <li>
-                            <img class="etalage_thumb_image" src="images/product-slide/image2_thumb.jpg"/>
-                            <img class="etalage_source_image" src="images/product-slide/image2_large.jpg"/>
+                            <img class="etalage_thumb_image" src="images/product-slide/image2${goods.picture}_thumb.jpg"/>
+                            <img class="etalage_source_image" src="images/product-slide/image2${goods.picture}_large.jpg"/>
                         </li>
                         <li>
-                            <img class="etalage_thumb_image" src="images/product-slide/image3_thumb.jpg"/>
-                            <img class="etalage_source_image" src="images/product-slide/image3_large.jpg"/>
+                            <img class="etalage_thumb_image" src="images/product-slide/image3${goods.picture}_thumb.jpg"/>
+                            <img class="etalage_source_image" src="images/product-slide/image3${goods.picture}_large.jpg"/>
                         </li>
                         <li>
-                            <img class="etalage_thumb_image" src="images/product-slide/image4_thumb.jpg"/>
-                            <img class="etalage_source_image" src="images/product-slide/image4_large.jpg"/>
+                            <img class="etalage_thumb_image" src="images/product-slide/image4${goods.picture}_thumb.jpg"/>
+                            <img class="etalage_source_image" src="images/product-slide/image4${goods.picture}_large.jpg"/>
                         </li>
                         <li>
-                            <img class="etalage_thumb_image" src="images/product-slide/image5_thumb.jpg"/>
-                            <img class="etalage_source_image" src="images/product-slide/image5_large.jpg"/>
+                            <img class="etalage_thumb_image" src="images/product-slide/image5${goods.picture}_thumb.jpg"/>
+                            <img class="etalage_source_image" src="images/product-slide/image5${goods.picture}_large.jpg"/>
                         </li>
                         <li>
-                            <img class="etalage_thumb_image" src="images/product-slide/image6_thumb.jpg"/>
-                            <img class="etalage_source_image" src="images/product-slide/image6_large.jpg"/>
+                            <img class="etalage_thumb_image" src="images/product-slide/image6${goods.picture}_thumb.jpg"/>
+                            <img class="etalage_source_image" src="images/product-slide/image6${goods.picture}_large.jpg"/>
                         </li>
                         <li>
-                            <img class="etalage_thumb_image" src="images/product-slide/image7_thumb.jpg"/>
-                            <img class="etalage_source_image" src="images/product-slide/image7_large.jpg"/>
+                            <img class="etalage_thumb_image" src="images/product-slide/image7${goods.picture}_thumb.jpg"/>
+                            <img class="etalage_source_image" src="images/product-slide/image7${goods.picture}_large.jpg"/>
                         </li>
                     </ul>
                 </div>
@@ -668,7 +671,7 @@
             <div class="bottom-top-grid">
                 <h4>关于我们</h4>
                 <ul>
-                    <li><a href="#">about</a></li>
+                    <li><a href="#">about us</a></li>
                 </ul>
             </div>
             <div class="bottom-top-grid last-bottom-top-grid">

@@ -24,11 +24,11 @@ public interface CartMapper {
     @Delete("delete from store_cart")
     int delAll();
 
-    @Select("select goodsMapJson,num from store_cart")
-    List<Cart> selAllCart();
+    @Select("select goodsMapJson,num from store_cart where uid=uid")
+    List<Cart> selAllCart(int uid);
 
-    @Insert("insert into store_cart (goodsMapJson,num) values (#{arg0},#{arg1})")
-    int insCart(String goodsMapJson,int num);
+    @Insert("insert into store_cart (goodsMapJson,num,uid) values (#{arg0},#{arg1},#{arg2})")
+    int insCart(String goodsMapJson,int num,int uid);
 
     @Update("update store_cart set GoodsMapJson=#{arg0},num=#{arg1}")
     int updCart(String goodsMapJson,int num);

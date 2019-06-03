@@ -94,15 +94,62 @@ public class CartController {
         Map<Goods,Integer> map = (Map<Goods, Integer>) session.getAttribute("cart");
         System.out.println("removeCart");
         System.out.println("map");
+        int num=0;
         for(Goods key:map.keySet()){
             if(key.getId()==id){
+                num=map.get(key);
                 map.put(key,0);
                 map.remove(key);
             }
         }
         session.setAttribute("cart",map);
-        session.setAttribute("total",(int)session.getAttribute("total")-1);
+        session.setAttribute("total",(int)session.getAttribute("total")-num);
         System.out.println("removeMap---"+map);
+    }
+    @RequestMapping("numPlus")
+    @ResponseBody
+    public void numPlus(int id,HttpSession session){
+        Map<Goods,Integer> map = (Map<Goods, Integer>) session.getAttribute("cart");
+        System.out.println("map");
+        for(Goods key:map.keySet()){
+            if(key.getId()==id){
+                map.replace(key,map.get(key)+1);
+            }
+        }
+        session.setAttribute("cart",map);
+        session.setAttribute("total",(int)session.getAttribute("total")+1);
+        System.out.println("plus---"+map);
+    }
+
+    @RequestMapping("numReduce")
+    @ResponseBody
+    public void numReduce(int id,HttpSession session){
+        Map<Goods,Integer> map = (Map<Goods, Integer>) session.getAttribute("cart");
+        System.out.println("map");
+        for(Goods key:map.keySet()){
+            if(key.getId()==id){
+                map.replace(key,map.get(key)-1);
+            }
+        }
+        session.setAttribute("cart",map);
+        session.setAttribute("total",(int)session.getAttribute("total")-1);
+        System.out.println("plus---"+map);
+    }
+
+    @RequestMapping("numReduse")
+    @ResponseBody
+    public void numReduse(int id,HttpSession session){
+        Map<Goods,Integer> map = (Map<Goods, Integer>) session.getAttribute("cart");
+        System.out.println("removeCart");
+        System.out.println("map");
+        for(Goods key:map.keySet()){
+            if(key.getId()==id){
+                map.replace(key,map.get(key)-1);
+            }
+        }
+        session.setAttribute("cart",map);
+        session.setAttribute("total",(int)session.getAttribute("total")-1);
+        System.out.println("reduce---"+map);
     }
 
     @RequestMapping("cart")
@@ -110,11 +157,11 @@ public class CartController {
         return "carts";
     }
 
-    @RequestMapping("flush")
+    @RequestMapping("refresh")
     @ResponseBody
-    public void flush(HttpServletResponse resp){
+    public void refresh(HttpServletResponse resp,HttpSession session){
         try {
-            resp.getWriter().write(" ");
+            resp.getWriter().write(String.valueOf(session.getAttribute("total")));
         } catch (IOException e) {
             e.printStackTrace();
         }

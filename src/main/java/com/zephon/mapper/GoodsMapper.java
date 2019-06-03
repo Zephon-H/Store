@@ -33,4 +33,7 @@ public interface GoodsMapper {
 
     @Select("select * from store_goods where type=#{arg0} limit 5")
     List<Goods> selSimilarByType(String type);
+
+    @Select("select * from store_goods where type like #{arg0} limit #{arg1},#{arg2}")
+    List<Goods> selLikeByType(String type,int pageStart,int pageSize);
 }

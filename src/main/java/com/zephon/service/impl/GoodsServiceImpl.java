@@ -48,4 +48,9 @@ public class GoodsServiceImpl implements GoodsService {
     public List<Goods> getSimilar(String type) {
         return goodsMapper.selSimilarByType(type);
     }
+
+    @Override
+    public List<Goods> getPageByType(String type, int pageSize, int pageNum) {
+        return goodsMapper.selLikeByType("%"+type+"%",pageSize*(pageNum-1),pageSize);
+    }
 }

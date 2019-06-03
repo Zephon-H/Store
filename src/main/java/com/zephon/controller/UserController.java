@@ -49,7 +49,7 @@ public class UserController {
         if(u!=null){
             session.setAttribute("user",u);
             try {
-                Map<Goods,Integer> cart = cartServiceImpl.getAllCart();
+                Map<Goods,Integer> cart = cartServiceImpl.getAllCart(user.getUid());
                 System.out.println("cart--"+cart);
                 int total = 0;
                 if(cart==null){
@@ -75,13 +75,14 @@ public class UserController {
 
     @RequestMapping("exit")
     public String exit(HttpSession session){
-        session.removeAttribute("user");
+        User user = (User) session.getAttribute("user");
         Map map = (Map) session.getAttribute("cart");
         try {
-            cartServiceImpl.addToCart(map);
+            cartServiceImpl.addToCart(map,user.getUid());
         } catch (JsonProcessingException e) {
             System.out.println("保存购物车失败");
         }
+        session.removeAttribute("user");
         session.removeAttribute("cart");
         session.removeAttribute("total");
         return "redirect:login";

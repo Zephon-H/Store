@@ -104,6 +104,18 @@
                                 e.stopPropagation();
                                 if ($cart.is(":hidden")) {
                                     $cart.slideDown("slow");
+                                    $.ajax({
+                                        url: "refresh",
+                                        type: "get",
+                                        datatype: 'json',
+                                        success: function (data) {
+                                            if(data==0){
+                                                $cart.html("购物车是空的 <span>(0)</span>")
+                                            }else{
+                                                $cart.html("<center><a style=\"color: #fff;\" href=\"cart\">结算</a><span>("+data+")</span></center>\n")
+                                            }
+                                        }
+                                    });
                                 } else {
                                     $cart.slideUp("slow");
                                 }
@@ -119,13 +131,6 @@
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
                     <div id="cart">
-                        <c:if test="${empty total}">
-                            购物车是空的 <span>(0)</span>
-                        </c:if>
-                        <c:if test="${not empty total}">
-                            <center><a style="color: #fff;" href="cart">结算</a><span>(${total})</span></center>
-                        </c:if>
-
                     </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
@@ -175,24 +180,22 @@
             <div class="clear"></div>
         </div>
     </div>
-    <!----//End-mid-head---->
-    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
     <!----start-bottom-header---->
     <div class="header-bottom">
         <div class="wrap">
             <!-- start header menu -->
             <ul class="megamenu skyblue">
-                <li class="grid"><a class="color2" href="#">男子</a>
+                <li class="grid"><a class="color2" href="#">男装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=男装休闲">休闲</a></li>
+                                        <li><a href="products?type=男装跑步">跑步</a></li>
+                                        <li><a href="products?type=男装篮球">篮球</a></li>
+                                        <li><a href="products?type=男装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -236,17 +239,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="active grid"><a class="color4" href="#">女子</a>
+                <li class="active grid"><a class="color4" href="#">女装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=女装休闲">休闲</a></li>
+                                        <li><a href="products?type=女装跑步">跑步</a></li>
+                                        <li><a href="products?type=女装篮球">篮球</a></li>
+                                        <li><a href="products?type=女装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -349,9 +352,9 @@
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>男子定制</h4>
+                                    <h4>男装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -365,9 +368,9 @@
                             </div>
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>女子定制</h4>
+                                    <h4>女装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -396,7 +399,7 @@
                     <div class="slider-detils">
                         <h3>${l.name} <label>${l.type}</label></h3>
                         <span>${l.detail}</span>
-                        <a class="slide-btn" href="`?id=${l.id}">立即购买</a>
+                        <a class="slide-btn" href="/Store/details?id=${l.id}">立即购买</a>
                     </div>
                 </li>
             </c:forEach>
@@ -427,7 +430,7 @@
                                             "                        <img src=images/product" + data[i].picture + ".jpg/>\n" +
                                             "                        <h5><a href='details?id="+data[i].id+"type="+data[i].type+"'"+">" + data[i].name + "</a></h5>\n" +
                                             "                        <span>" + data[i].type + "</span>\n" +
-                                            "                        <label>" + data[i].price + "</label>\n" +
+                                            "                        <label>￥" + data[i].price + "</label>\n" +
                                             "                    </div>")
                                     }
                                 },
@@ -493,7 +496,7 @@
                                             "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">Details</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"product-info-price\">\n" +
-                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">" + data[i].price + "</a>\n" +
+                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">￥" + data[i].price + "</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"clear\"></div>\n" +
                                             "                    </div>\n" +
@@ -515,7 +518,7 @@
                                             "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">Details</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"product-info-price\">\n" +
-                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">" + data[i].price + "元</a>\n" +
+                                            "                            <a href='details?id="+data[i].id+"type="+data[i].type+"'"+">￥" + data[i].price + "元</a>\n" +
                                             "                        </div>\n" +
                                             "                        <div class=\"clear\"></div>\n" +
                                             "                    </div>\n" +
@@ -559,7 +562,7 @@
             <div class="bottom-top-grid">
                 <h4>关于我们</h4>
                 <ul>
-                    <li><a href="#">about</a></li>
+                    <li><a href="#">about us us</a></li>
                 </ul>
             </div>
             <div class="bottom-top-grid last-bottom-top-grid">

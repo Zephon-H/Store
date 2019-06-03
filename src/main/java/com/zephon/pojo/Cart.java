@@ -14,6 +14,7 @@ public class Cart {
     private Integer cid;
     private String goodsMapJson;
     private Integer num;
+    private Integer uid;
 
     @Override
     public String toString() {
@@ -21,6 +22,7 @@ public class Cart {
                 "cid=" + cid +
                 ", goodsMapJson='" + goodsMapJson + '\'' +
                 ", num=" + num +
+                ", uid=" + uid +
                 '}';
     }
 
@@ -46,5 +48,13 @@ public class Cart {
 
     public void setNum(Integer num) {
         this.num = num;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
     }
 }

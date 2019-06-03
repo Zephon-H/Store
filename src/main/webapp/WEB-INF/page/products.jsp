@@ -81,6 +81,18 @@
                                 e.stopPropagation();
                                 if ($cart.is(":hidden")) {
                                     $cart.slideDown("slow");
+                                    $.ajax({
+                                        url: "refresh",
+                                        type: "get",
+                                        datatype: 'json',
+                                        success: function (data) {
+                                            if(data==0){
+                                                $cart.html("购物车是空的 <span>(0)</span>")
+                                            }else{
+                                                $cart.html("<center><a style=\"color: #fff;\" href=\"cart\">结算</a><span>("+data+")</span></center>\n")
+                                            }
+                                        }
+                                    });
                                 } else {
                                     $cart.slideUp("slow");
                                 }
@@ -96,13 +108,6 @@
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
                     <div id="cart">
-                        <c:if test="${empty total}">
-                            购物车是空的 <span>(0)</span>
-                        </c:if>
-                        <c:if test="${not empty total}">
-                            <center><a style="color: #fff;" href="cart">结算</a><span>(${total})</span></center>
-                        </c:if>
-
                     </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
@@ -152,24 +157,22 @@
             <div class="clear"></div>
         </div>
     </div>
-    <!----//End-mid-head---->
-    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
     <!----start-bottom-header---->
     <div class="header-bottom">
         <div class="wrap">
             <!-- start header menu -->
             <ul class="megamenu skyblue">
-                <li class="grid"><a class="color2" href="#">男子</a>
+                <li class="grid"><a class="color2" href="#">男装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=男装休闲">休闲</a></li>
+                                        <li><a href="products?type=男装跑步">跑步</a></li>
+                                        <li><a href="products?type=男装篮球">篮球</a></li>
+                                        <li><a href="products?type=男装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -213,17 +216,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="active grid"><a class="color4" href="#">女子</a>
+                <li class="active grid"><a class="color4" href="#">女装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=女装休闲">休闲</a></li>
+                                        <li><a href="products?type=女装跑步">跑步</a></li>
+                                        <li><a href="products?type=女装篮球">篮球</a></li>
+                                        <li><a href="products?type=女装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -326,9 +329,9 @@
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>男子定制</h4>
+                                    <h4>男装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -342,9 +345,9 @@
                             </div>
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>女子定制</h4>
+                                    <h4>女装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -370,11 +373,25 @@
         <div class="content-left">
             <div class="content-left-top-brands">
                 <h3>类别</h3>
-                <ul>
-                    <li><a href="#">所有</a></li>
-                    <li><a href="#">男子</a></li>
-                    <li><a href="#">女子</a></li>
-                    <li><a href="#">童装</a></li>
+                <script>
+                    $(function(){
+                        var type="${param.type}";
+                        if(type==""){
+                            $("#a1").css("color","red");
+                        }else if(type.indexOf("男装") != -1){
+                            $("#a2").css("color","red");
+                        }else if(type.indexOf("女装") != -1){
+                            $("#a3").css("color","red");
+                        }else if(type.indexOf("童装") != -1){
+                            $("#a4").css("color","red");
+                        }
+                    })
+                </script>
+                <ul id="type">
+                    <li><a id="a1" href="products">所有</a></li>
+                    <li><a id="a2" href="products?type=男装">男装</a></li>
+                    <li><a id="a3" href="products?type=女装">女装</a></li>
+                    <li><a id="a4" href="products?type=童装">童装</a></li>
                 </ul>
             </div>
             <div class="content-left-top-grid">
@@ -388,7 +405,7 @@
         <div class="content-right product-box">
             <div class="product-box-head">
                 <div class="product-box-head-left">
-                    <h3>商品 <span>(500)</span></h3>
+                    <h3>商品 <span id="num">0</span></h3>
                 </div>
                 <div class="product-box-head-right">
                     <ul>
@@ -432,8 +449,8 @@
                         // 记录页数
                         var $page = 1;
                         $.ajax({
-                            url:"selPage",
-                            data:"page="+$page,
+                            url:"selPageByType",
+                            data:"page="+$page+"&type=${param.type}",
                             type:"get",
                             datatype:'json',
                             success:function(data){
@@ -483,12 +500,13 @@
                                             "                        <span> </span>\n" +
                                             "                    </div>\n" +
                                             "                </div>");
+
                                     }
-                                }
-                                //$("#contentDiv").html("");
-                            },
+                                    }
+                                $("#num").html(document.getElementById("contentDiv").getElementsByClassName("product-grid").length)
+                                },
                             error:function () {
-                                alert("11");
+                                alert("服务器错误");
                             }});
                         // 懒加载
                         var winH = $(window).height(); //页面可视区域高度
@@ -499,7 +517,8 @@
                             if (aa < 0.02) {
                                 $page++;
                                 $.ajax({
-                                    url:"selPage?page="+$page,
+                                    url:"selPageByType",
+                                    data:"page="+$page+"&type=${param.type}",
                                     type:"get",
                                     datatype:'json',
                                     success:function(data){
@@ -553,7 +572,7 @@
                                                     "                </div>");
                                             }
                                         }
-                                        //$("#contentDiv").html("");
+                                        $("#num").html(document.getElementById("contentDiv").getElementsByClassName("product-grid").length)
                                     },
                                     error:function () {
                                         alert("11");
@@ -598,7 +617,7 @@
             <div class="bottom-top-grid">
                 <h4>关于我们</h4>
                 <ul>
-                    <li><a href="#">about</a></li>
+                    <li><a href="#">about us</a></li>
                 </ul>
             </div>
             <div class="bottom-top-grid last-bottom-top-grid">

@@ -128,6 +128,7 @@ $(function () {
         $reduce = $('.reduce'),
         $all_sum = $('.sum');
     $plus.click(function () {
+        $order_lists = $(this).parents('.order_lists');
         var $inputVal = $(this).prev('input'),
             $count = parseInt($inputVal.val())+1,
             $obj = $(this).parents('.amount_box').find('.reduce'),

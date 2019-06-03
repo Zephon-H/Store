@@ -93,6 +93,18 @@
                                 e.stopPropagation();
                                 if ($cart.is(":hidden")) {
                                     $cart.slideDown("slow");
+                                    $.ajax({
+                                        url: "refresh",
+                                        type: "get",
+                                        datatype: 'json',
+                                        success: function (data) {
+                                            if(data==0){
+                                                $cart.html("购物车是空的 <span>(0)</span>")
+                                            }else{
+                                                $cart.html("<center><a style=\"color: #fff;\" href=\"cart\">结算</a><span>("+data+")</span></center>\n")
+                                            }
+                                        }
+                                    });
                                 } else {
                                     $cart.slideUp("slow");
                                 }
@@ -108,13 +120,6 @@
                     <li><a class="cart" href="#"><span id="clickme"> </span></a></li>
                     <!---start-cart-bag---->
                     <div id="cart">
-                        <c:if test="${empty total}">
-                            购物车是空的 <span>(0)</span>
-                        </c:if>
-                        <c:if test="${not empty total}">
-                            <center><a style="color: #fff;" href="cart">结算</a><span>(${total})</span></center>
-                        </c:if>
-
                     </div>
                     <!---start-cart-bag---->
                     <li><a class="info" href="#"><span> </span></a></li>
@@ -164,24 +169,22 @@
             <div class="clear"></div>
         </div>
     </div>
-    <!----//End-mid-head---->
-    <div class="copyrights">Collect from <a href="http://www.cssmoban.com/" title="网站模板">网站模板</a></div>
     <!----start-bottom-header---->
     <div class="header-bottom">
         <div class="wrap">
             <!-- start header menu -->
             <ul class="megamenu skyblue">
-                <li class="grid"><a class="color2" href="#">男子</a>
+                <li class="grid"><a class="color2" href="#">男装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=男装休闲">休闲</a></li>
+                                        <li><a href="products?type=男装跑步">跑步</a></li>
+                                        <li><a href="products?type=男装篮球">篮球</a></li>
+                                        <li><a href="products?type=男装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -225,17 +228,17 @@
                         </div>
                     </div>
                 </li>
-                <li class="active grid"><a class="color4" href="#">女子</a>
+                <li class="active grid"><a class="color4" href="#">女装</a>
                     <div class="megapanel">
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
                                     <h4>所有鞋类</h4>
                                     <ul>
-                                        <li><a href="products">休闲</a></li>
-                                        <li><a href="products">跑步</a></li>
-                                        <li><a href="products">篮球</a></li>
-                                        <li><a href="products">足球</a></li>
+                                        <li><a href="products?type=女装休闲">休闲</a></li>
+                                        <li><a href="products?type=女装跑步">跑步</a></li>
+                                        <li><a href="products?type=女装篮球">篮球</a></li>
+                                        <li><a href="products?type=女装足球">足球</a></li>
                                     </ul>
                                 </div>
                                 <div class="h_nav">
@@ -338,9 +341,9 @@
                         <div class="row">
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>男子定制</h4>
+                                    <h4>男装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -354,9 +357,9 @@
                             </div>
                             <div class="col1">
                                 <div class="h_nav">
-                                    <h4>女子定制</h4>
+                                    <h4>女装定制</h4>
                                     <ul>
-                                        <li><a href="products">所有男子定制</a></li>
+                                        <li><a href="products">所有男装定制</a></li>
                                         <li><a href="products">休闲</a></li>
                                         <li><a href="products">跑步</a></li>
                                         <li><a href="products">篮球</a></li>
@@ -395,20 +398,23 @@
                 <li class="list_op">操作</li>
             </ul>
         </div>
-        <div class="cartBox" style="display: none;">
-            <div class="all_check">
-                <!--店铺全选-->
-                <input type="checkbox" id="shop_a" class="shopChoice">
-                <label for="shop_a" class="shop"></label>
+        <div class="cartBox">
+            <div class="shop_info" style="display: none;">
+                <div class="all_check">
+                    <!--店铺全选-->
+                    <input type="checkbox" id="shop_a" class="shopChoice">
+                    <label for="shop_a" class="shop"></label>
+                </div>
+                <div class="shop_name">
+                    店铺：<a href="javascript:;"></a>
+                </div>
             </div>
-            <div class="shop_name">
-                店铺：<a href="javascript:;"></a>
-            </div>
-        </div>
         <div class="order_content">
-            <c:forEach items="${cart}" var="c">
+            <c:set var="price" scope="request" value="0"></c:set>
+            <c:forEach items="${cart}" var="c" varStatus="s">
+                <c:set var="price" scope="request" value="${price+c.key.price*c.value}"></c:set>
                 <ul class="order_lists">
-                    <li style="display: none;"><div>${c.key.id}</div></li>
+                    <li id="id" style="display: none;"><div>${c.key.id}</div></li>
                     <li class="list_chk">
                         <input type="checkbox" id="checkbox_${s.index+2}" class="son_check">
                         <label for="checkbox_${s.index+2}"></label>
@@ -440,18 +446,15 @@
                 </ul>
             </c:forEach>
         </div>
+        </div>
     </section>
 </div>
 <script src="js/carts.js"></script>
 <script>
-    var $name = "a";
     $(function () {
         //确定按钮，移除商品
         $('.dialog-sure').click(function () {
-
             var $id = parseInt($name[0].innerText.trim().substring(0, $name[0].innerText.trim().indexOf(" ")));
-            //$name=$name[0].childNodes[3].innerText.trim();
-
             $.ajax({
                 url: "removeCart",
                 type: "post",
@@ -460,7 +463,35 @@
                     id: $id
                 },
                 success: function (data) {
-                    alert("移除成功");
+
+                }
+            });
+        });
+        $('.plus').click(function () {
+            var $id=$(this).parents('.order_lists').text().trim().substring(0,$(this).parents('.order_lists').text().trim().indexOf(" "));
+            $.ajax({
+                url: "numPlus",
+                type: "post",
+                datatype: 'json',
+                data: {
+                    id: $id
+                },
+                success: function (data) {
+                   // alert("add");
+                }
+            });
+        });
+        $('.reduce').click(function () {
+            var $id=$(this).parents('.order_lists').text().trim().substring(0,$(this).parents('.order_lists').text().trim().indexOf(" "));
+            $.ajax({
+                url: "numReduce",
+                type: "post",
+                datatype: 'json',
+                data: {
+                    id: $id
+                },
+                success: function (data) {
+                    // alert("add");
                 }
             });
         })
@@ -470,7 +501,7 @@
 <div class="bar-wrapper">
     <div class="bar-right">
         <div class="piece">已选商品<strong class="piece_num">0</strong>件</div>
-        <div class="totalMoney">共计: <strong class="total_text">0.00</strong></div>
+        <div class="totalMoney">共计: <strong class="total_text">￥0.00</strong></div>
         <div class="calBtn"><a href="javascript:;">结算</a></div>
     </div>
 </div>
@@ -500,7 +531,7 @@
             <div class="bottom-top-grid">
                 <h4>关于我们</h4>
                 <ul>
-                    <li><a href="#">about</a></li>
+                    <li><a href="#">about us</a></li>
                 </ul>
             </div>
             <div class="bottom-top-grid last-bottom-top-grid">

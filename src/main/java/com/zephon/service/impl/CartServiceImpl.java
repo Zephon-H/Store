@@ -28,14 +28,14 @@ public class CartServiceImpl implements CartService {
     @Resource
     private CartMapper cartMapper;
     @Override
-    public int addToCart(Map<Goods, Integer> map) throws JsonProcessingException {
+    public int addToCart(Map<Goods, Integer> map,int uid) throws JsonProcessingException {
         if(cartMapper.delAll()!=1){
             System.out.println("error");
         }
         ObjectMapper mapper = new ObjectMapper();
         for(Goods key:map.keySet()){
             String json = mapper.writeValueAsString(key);
-            int index = cartMapper.insCart(json, map.get(key));
+            int index = cartMapper.insCart(json, map.get(key),uid);
             if(index<0){
                 System.out.println("insCart error");
                 return 0;
@@ -52,9 +52,9 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Map<Goods,Integer> getAllCart() throws IOException {
+    public Map<Goods,Integer> getAllCart(int uid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        List<Cart> cartList = cartMapper.selAllCart();
+        List<Cart> cartList = cartMapper.selAllCart(uid);
         if(cartList.isEmpty()){return null;}
         System.out.println("cartList"+cartList);
         Map<Goods,Integer> map = new HashMap<>();
