@@ -87,4 +87,8 @@ public class UserController {
         session.removeAttribute("total");
         return "redirect:login";
     }
+    @RequestMapping("backstage")
+    public String backstage(){
+        return "backstage/login";
+    }
 }

@@ -25,6 +25,9 @@ public class UserInterceptor implements HandlerInterceptor {
         if(request.getRequestURI().endsWith("login")||request.getRequestURI().endsWith("register")){
             return true;
         }
+        if(request.getRequestURI().endsWith("backstage")){
+            return true;
+        }
         if(user!=null){
             return true;
         }

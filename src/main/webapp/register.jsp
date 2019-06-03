@@ -187,16 +187,10 @@
             </div>
             <div class="top-header-right">
                 <ul>
-                    <c:if test="${not empty user}">
-                        <li style="color: #fff; font-size:15px;">${user.uname},你好</li>
-                        <li><a href="exit">退出</a></li>
-                    </c:if>
-                    <c:if test="${empty user}">
+                    <ul>
                         <li><a href="login.jsp">登录</a><span> </span></li>
                         <li><a href="register.jsp">注册</a></li>
-                    </c:if>
-
-
+                    </ul>
                 </ul>
             </div>
             <div class="clear"></div>
