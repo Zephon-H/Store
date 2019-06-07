@@ -57,7 +57,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "BackUser{" +
                 "uid=" + uid +
                 ", uname='" + uname + '\'' +
                 ", pwd='" + pwd + '\'' +

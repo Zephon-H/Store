@@ -1,22 +1,19 @@
 package com.zephon.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.zephon.pojo.Cart;
 import com.zephon.pojo.Goods;
 import com.zephon.pojo.User;
 import com.zephon.service.CartService;
 import com.zephon.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Logger;
 
 /**
  * @author Zephon
@@ -31,22 +28,42 @@ public class UserController {
     UserService userServiceImpl;
     @Resource
     CartService cartServiceImpl;
+
+    private org.apache.log4j.Logger logger = Logger.getLogger(BackUserController.class);
+
+    /**
+     * @Author Zephon
+     * @Description 注册
+     * @Date 19-6-3 下午6:05
+     * @Param [user, session]
+     * @return java.lang.String
+     **/
     @RequestMapping("register")
     public String Register(User user, HttpSession session){
         System.out.println(user);
         int index = userServiceImpl.register(user);
         if(index>0){
+            logger.debug("用户编号为"+user.getUid()+"的用户注册了");
             session.setAttribute("user",user);
             return "redirect:index";
         }else{
             return "redirect:/register.jsp";
         }
     }
+
+    /**
+     * @Author Zephon
+     * @Description 登录
+     * @Date 19-6-3 下午6:05
+     * @Param [user, session, request]
+     * @return java.lang.String
+     **/
     @RequestMapping("login")
     public String login(User user, HttpSession session,HttpServletRequest request){
         System.out.println(user);
         User u = userServiceImpl.login(user);
         if(u!=null){
+            logger.debug("用户编号为"+user.getUid()+"的用户登录了");
             session.setAttribute("user",u);
             try {
                 Map<Goods,Integer> cart = cartServiceImpl.getAllCart(user.getUid());
@@ -73,8 +90,16 @@ public class UserController {
         }
     }
 
+    /**
+     * @Author Zephon
+     * @Description 退出，同时保存session中购物车信息到数据库
+     * @Date 19-6-3 下午6:06
+     * @Param [session]
+     * @return java.lang.String
+     **/
     @RequestMapping("exit")
     public String exit(HttpSession session){
+        logger.debug("用户名为"+session.getAttribute("user")+"的用户退出了");
         User user = (User) session.getAttribute("user");
         Map map = (Map) session.getAttribute("cart");
         try {
@@ -87,6 +112,11 @@ public class UserController {
         session.removeAttribute("total");
         return "redirect:login";
     }
+
+    /**
+     * 后台跳转
+     * @return
+     */
     @RequestMapping("backstage")
     public String backstage(){
         return "backstage/login";

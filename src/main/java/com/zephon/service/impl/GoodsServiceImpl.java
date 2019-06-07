@@ -19,6 +19,7 @@ import java.util.List;
 public class GoodsServiceImpl implements GoodsService {
     @Resource
     private GoodsMapper goodsMapper;
+
     @Override
     public List<Goods> getSixGoods() {
         return goodsMapper.selSixGoods();
@@ -46,7 +47,7 @@ public class GoodsServiceImpl implements GoodsService {
 
     @Override
     public List<Goods> getSimilar(String type) {
-        return goodsMapper.selSimilarByType(type);
+        return goodsMapper.selSimilarByType("%"+type+"%");
     }
 
     @Override

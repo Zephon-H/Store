@@ -551,22 +551,22 @@
 	border: 1px solid #08080B;
 }
 /* Thumbnails */
-/* line 764, /Users/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
+/* line 764, /BackUser/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
 .thumb-box {
   padding: 1.4em 0 1em;
   margin-left: -1%;
   width: 102%; }
-  /* line 768, /Users/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
+  /* line 768, /BackUser/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
   .thumb-box .thumbs {
     overflow: hidden;
     *zoom: 1; }
-    /* line 770, /Users/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
+    /* line 770, /BackUser/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
     .thumb-box .thumbs li {
       float: left;
       width: 25%;
       text-align: center;
       padding: 0 1%; }
-      /* line 775, /Users/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
+      /* line 775, /BackUser/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
       .thumb-box .thumbs li img {
         width: 100%;
         opacity: .8;
@@ -575,11 +575,11 @@
         -o-transition: opacity 0.32s;
         transition: opacity 0.32s;
         border-bottom: 4px solid transparent; }
-        /* line 780, /Users/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
+        /* line 780, /BackUser/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
         .thumb-box .thumbs li img.active {
           border-color:#E45D5D;
           opacity: 1; }
-      /* line 786, /Users/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
+      /* line 786, /BackUser/sftsk/bc_drupal/public/slippry.vbox.local/www/source/assets/css/styles.scss */
       .thumb-box .thumbs li:hover img {
         opacity: 1;
         -webkit-transition: opacity 0.2s;

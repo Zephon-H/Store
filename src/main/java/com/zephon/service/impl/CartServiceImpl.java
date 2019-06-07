@@ -1,13 +1,11 @@
 package com.zephon.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zephon.mapper.CartMapper;
 import com.zephon.pojo.Cart;
 import com.zephon.pojo.Goods;
 import com.zephon.service.CartService;
-import com.zephon.util.MapResultHandler;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -27,6 +25,14 @@ import java.util.Map;
 public class CartServiceImpl implements CartService {
     @Resource
     private CartMapper cartMapper;
+
+    /**
+     * @Author Zephon
+     * @Description 将map转换为json字符串添加到数据库
+     * @Date 19-6-3 下午6:17
+     * @Param [map, uid]
+     * @return int
+     **/
     @Override
     public int addToCart(Map<Goods, Integer> map,int uid) throws JsonProcessingException {
         if(cartMapper.delAll()!=1){
@@ -44,6 +50,13 @@ public class CartServiceImpl implements CartService {
         return 1;
     }
 
+    /**
+     * @Author Zephon
+     * @Description 更新购物车数据库
+     * @Date 19-6-3 下午6:18
+     * @Param [cart]
+     * @return int
+     **/
     @Override
     public int updCart(Cart cart) throws JsonProcessingException {
         ObjectMapper mapper = new ObjectMapper();
@@ -51,6 +64,13 @@ public class CartServiceImpl implements CartService {
         return cartMapper.updCart(json,0);
     }
 
+    /**
+     * @Author Zephon
+     * @Description 将购物车数据库中的json字符串转为map类型
+     * @Date 19-6-3 下午6:19
+     * @Param [uid]
+     * @return java.util.Map<com.zephon.pojo.Goods,java.lang.Integer>
+     **/
     @Override
     public Map<Goods,Integer> getAllCart(int uid) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
@@ -62,16 +82,5 @@ public class CartServiceImpl implements CartService {
             map.put(mapper.readValue(c.getGoodsMapJson(),Goods.class),c.getNum());
         }
         return map;
-        /*Map<String, Integer> map = cartMapper.selAllCart();
-        System.out.println("map--"+map.keySet());
-        if(map==null)return null;
-        ObjectMapper mapper = new ObjectMapper();
-        Map<Goods,Integer> cartMap = new HashMap<>();
-        //JavaType jvt = mapper.getTypeFactory().constructParametricType(HashMap.class,Goods.class,Integer.class);
-        for(String json:map.keySet()){
-            Goods goods = mapper.readValue(json, Goods.class);
-            cartMap.put(goods,map.get(json));
-        }
-        return cartMap;*/
     }
 }

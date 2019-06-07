@@ -24,6 +24,7 @@ import java.util.Map;
  * @author Zephon
  * @version V1.0
  * @Package com.zephon.controller
+ * @Description 商品控制器
  * @date 19-5-27 下午1:11
  * @Copyright ©
  */
@@ -32,12 +33,26 @@ public class GoodsController {
     @Resource
     private GoodsService goodsServiceImpl;
 
+    /**
+     * @Author Zephon
+     * @Description index页面转换并且设置动态轮播图
+     * @Date 19-6-3 下午6:00
+     * @Param [req]
+     * @return java.lang.String
+     **/
     @RequestMapping("index")
     public String index(HttpServletRequest req){
         req.setAttribute("slideList",goodsServiceImpl.getSlide());
         return "index";
     }
 
+    /**
+     * @Author Zephon
+     * @Description ajax选择六个商品信息，在index中展示
+     * @Date 19-6-3 下午6:00
+     * @Param [resp]
+     * @return void
+     **/
     @RequestMapping("selSixGoods")
     @ResponseBody
     public void getSixGoods(HttpServletResponse resp){
@@ -46,6 +61,13 @@ public class GoodsController {
         ajax(list,resp);
     }
 
+    /**
+     * @Author Zephon
+     * @Description ajax选择推荐商品
+     * @Date 19-6-3 下午6:01
+     * @Param [resp]
+     * @return void
+     **/
     @RequestMapping("selRecommend")
     @ResponseBody
     public void selRecommend(HttpServletResponse resp){
@@ -54,6 +76,13 @@ public class GoodsController {
         ajax(list,resp);
     }
 
+    /**
+     * @Author Zephon
+     * @Description products页面转换
+     * @Date 19-6-3 下午6:01
+     * @Param [type]
+     * @return java.lang.String
+     **/
     @RequestMapping("products")
     public String products(String type){
         System.out.println(type);
@@ -61,6 +90,13 @@ public class GoodsController {
         return "products";
     }
 
+    /**
+     * @Author Zephon
+     * @Description details页面转换，并设置商品对应id和类型
+     * @Date 19-6-3 下午6:02
+     * @Param [id, type, req]
+     * @return java.lang.String
+     **/
     @RequestMapping("details")
     public String details(int id,String type,HttpServletRequest req){
         System.out.println("details");
@@ -70,6 +106,13 @@ public class GoodsController {
         return "details";
     }
 
+    /**
+     * @Author Zephon
+     * @Description ajax使用懒加载，分页显示
+     * @Date 19-6-3 下午6:03
+     * @Param [resp, page]
+     * @return void
+     **/
     @RequestMapping("selPage")
     @ResponseBody
     public void selPage(HttpServletResponse resp, @RequestParam(defaultValue = "1") String page){
@@ -81,6 +124,13 @@ public class GoodsController {
         ajax(list,resp);
     }
 
+    /**
+     * @Author Zephon
+     * @Description ajax轮播图动态刷新
+     * @Date 19-6-3 下午6:04
+     * @Param [resp]
+     * @return void
+     **/
     @RequestMapping("selSlide")
     @ResponseBody
     public void selSlide(HttpServletResponse resp){
@@ -89,6 +139,13 @@ public class GoodsController {
         ajax(list,resp);
     }
 
+    /**
+     * @Author Zephon
+     * @Description ajax共有方法封装
+     * @Date 19-6-3 下午6:04
+     * @Param [list, resp]
+     * @return void
+     **/
     public void ajax(List list,HttpServletResponse resp){
         System.out.println(list);
         ObjectMapper mapper = new ObjectMapper();
@@ -106,6 +163,13 @@ public class GoodsController {
         }
     }
 
+    /**
+     * @Author Zephon
+     * @Description 根据类型模糊匹配用分页方式显示商品
+     * @Date 19-6-3 下午6:05
+     * @Param [resp, page, type]
+     * @return void
+     **/
     @RequestMapping("selPageByType")
     @ResponseBody
     public void selPageByType(HttpServletResponse resp, @RequestParam(defaultValue = "1") String page,String type){

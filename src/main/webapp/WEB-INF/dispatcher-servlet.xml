@@ -15,6 +15,8 @@
     <mvc:resources mapping="/js/**" location="/static/js/"/>
     <mvc:resources mapping="/css/**" location="/static/css/"/>
     <mvc:resources mapping="/images/**" location="/static/images/"/>
+    <mvc:resources mapping="/fonts/**" location="/static/fonts/"/>
+    <mvc:resources mapping="/log/**" location="/static/log/"/>
 
     <!-- 扫描注解，只扫描controller包 -->
     <context:component-scan base-package="com.zephon.controller"/>
@@ -53,7 +55,26 @@
             <mvc:exclude-mapping path="/**/*.gif"/>
             <mvc:exclude-mapping path="/**/*.jpg"/>
             <mvc:exclude-mapping path="/**/*.jpeg"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.log"/>
             <bean class="com.zephon.interceptor.UserInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/back**/*"/>
+            <mvc:exclude-mapping path="/**/*.css"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.png"/>
+            <mvc:exclude-mapping path="/**/*.gif"/>
+            <mvc:exclude-mapping path="/**/*.jpg"/>
+            <mvc:exclude-mapping path="/**/*.jpeg"/>
+            <mvc:exclude-mapping path="/**/*.js"/>
+            <mvc:exclude-mapping path="/**/*.eot"/>
+            <mvc:exclude-mapping path="/**/*.svg"/>
+            <mvc:exclude-mapping path="/**/*.ttf"/>
+            <mvc:exclude-mapping path="/**/*.woff"/>
+            <mvc:exclude-mapping path="/**/*.woff2"/>
+            <mvc:exclude-mapping path="/**/*.log"/>
+            <bean class="com.zephon.interceptor.BackInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 
